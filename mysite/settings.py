@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_$uoo_h$vab$(jh6)b20&%phw+@8s(48+htl%y_fxfk@xp45mg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
 "ermesonribeiro.pythonanywhere.com"
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djoser',
+    'rest_framework',
     'polls',
 ]
 
@@ -102,6 +105,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+    }
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('Bearer,'),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=3),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
