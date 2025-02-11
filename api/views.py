@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from .models import Feedback, UserProgress
-from .serializers import FeedbackSerializer, UserProgressSerializer
+from .models import Doubt, Feedback, UserProgress
+from .serializers import DoubtSerializer, FeedbackSerializer, UserProgressSerializer
 
 class FeedbackCreateView(generics.CreateAPIView):
     queryset = Feedback.objects.all()
@@ -8,6 +8,14 @@ class FeedbackCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class DoubtCreateView(generics.CreateAPIView):
+    queryset = Doubt.objects.all()
+    serializer_class = DoubtSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def doubt_create(self, serializer):
         serializer.save(user=self.request.user)
 
 class UserProgressView(generics.RetrieveUpdateAPIView):
